@@ -6,9 +6,9 @@ from models.wresnet import *
 
 def select_model(dataset,
                  model_name,
-                 pretrained=False,
-                 pretrained_models_path=None):
-    if dataset in ['SVHN', 'CIFAR10']:
+                 pretrained=True,
+                 pretrained_models_path='/Users/niclashedberg/code/deeplearning_advancedDD2412/Pretrained'):
+    if dataset in ['CIFAR10']:  # original code ['SVHN', 'CIFAR10']:
         n_classes = 10
         if model_name == 'LeNet':
             model = LeNet32(n_classes=n_classes)
@@ -25,6 +25,7 @@ def select_model(dataset,
 
         if pretrained:
             model_path = os.path.join(pretrained_models_path, dataset, model_name, "last.pth.tar")
+            print(model_path)
             print('Loading Model from {}'.format(model_path))
             checkpoint = torch.load(model_path, map_location='cpu')
             model.load_state_dict(checkpoint['state_dict'])
@@ -43,7 +44,7 @@ if __name__ == '__main__':
     x = torch.FloatTensor(64, 3, 32, 32).uniform_(0, 1)
 
     t0 = time.time()
-    model = select_model('CIFAR10', model_name='WRN-16-2')
+    model = select_model('CIFAR10', model_name='WRN-40-1')
     output, *act = model(x)
     print("Time taken for forward pass: {} s".format(time.time() - t0))
     print("\nOUTPUT SHAPE: ", output.shape)

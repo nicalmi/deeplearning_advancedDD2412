@@ -1,14 +1,14 @@
 #!/bin/sh
 
-export CUDA_HOME=/opt/cuda-9.0.176.1/
-source activate pytorch
+#export CUDA_HOME=/opt/cuda-9.0.176.1/
+#source activate pytorch
 
-EXECUTABLE_FILE=/afs/inf.ed.ac.uk/user/s17/s1771851/git/ZeroShotKnowledgeTransfer/main.py
-LOG_DIR=/afs/inf.ed.ac.uk/user/s17/s1771851/logs
-PRETRAINED_MODELS_DIR=/disk/scratch/s1771851/Pretrained/
-DATASETS_DIR=/disk/scratch/s1771851/Datasets/Pytorch
+EXECUTABLE_FILE=/Users/niclashedberg/code/deeplearning_advancedDD2412/ZeroShotKnowledgeTransfer/main.py
+LOG_DIR=/Users/niclashedberg/code/deeplearning_advancedDD2412/logs
+PRETRAINED_MODELS_DIR=/Users/niclashedberg/code/deeplearning_advancedDD2412/Pretrained
+DATASETS_DIR=/Users/niclashedberg/code/deeplearning_advancedDD2412/Datasets/
 
-python ${EXECUTABLE_FILE} \
+python3 ${EXECUTABLE_FILE} \
 --dataset CIFAR10 \
 --total_n_pseudo_batches 8e4 \
 --n_generator_iter 1 \

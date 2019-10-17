@@ -86,6 +86,7 @@ class ZeroShotKTSolver(object):
         end = time()
         idx_pseudo = 0
         while self.n_pseudo_batches < self.args.total_n_pseudo_batches:
+            print("n_pseudo_batches: " + str(self.n_pseudo_batches))
             x_pseudo = self.generator.__next__()
             running_data_time.update(time() - end)
 
