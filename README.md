@@ -19,3 +19,7 @@ DATASETS_DIR=/Users/niclashedberg/code/deeplearning_advancedDD2412/Datasets/
 ```
 
 5. Switch 'python' to 'python3' in scripts/main1.sh 
+6. Ändra path i main.py motsvarande
+```python
+    parser.add_argument('--pretrained_models_path', nargs="?", type=str, default='/Users/niclashedberg/code/deeplearning_advancedDD2412/Pretrained')
+```
