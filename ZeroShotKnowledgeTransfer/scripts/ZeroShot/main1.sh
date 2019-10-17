@@ -1,5 +1,6 @@
 #!/bin/sh
 
+<<<<<<< HEAD
 #export CUDA_HOME=/opt/cuda-9.0.176.1/
 #source activate pytorch
 
