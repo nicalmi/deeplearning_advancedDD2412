@@ -12,6 +12,7 @@ from utils.datasets import *
 from models.selector import *
 from utils.loaders import *
 import scipy
+from datetime import datetime
 
 
 class ZeroShotKTSolver(object):
@@ -80,7 +81,10 @@ class ZeroShotKTSolver(object):
         #Write architecture to file
         dirpath = os.path.dirname(__file__)
         dirpath = dirpath.replace('/ZeroShotKnowledgeTransfer', '')
-        f = open(str(dirpath) + '/saved_images/generator_architecture.txt', 'w+')
+        now = datetime.now()
+        dirname = now.strftime("%Y-%m-%d_%H.%M.%S")
+        os.mkdir(dirpath + '/saved_images/' + dirname)
+        f = open(dirpath + '/saved_images/' + dirname + '/generator_architecture.txt', 'w+')
         f.write(str(self.generator))
         f.close()
 
@@ -138,7 +142,7 @@ class ZeroShotKTSolver(object):
                     student_maxes_distribution.append(student_maxes)
                     student_argmaxes_distribution.append(student_argmaxes)
 
-                extralogs = [10, 50, 100, 200, 300, 400]
+                extralogs = [1, 10, 50, 100, 200, 300, 400]
                 if (self.n_pseudo_batches+1) % self.args.log_freq == 0 or extralogs.__contains__(self.n_pseudo_batches+1):
                     test_acc = self.test()
 
@@ -149,7 +153,7 @@ class ZeroShotKTSolver(object):
                     filepath = ''
                     dirpath = os.path.dirname(__file__)
                     dirpath = dirpath.replace('/ZeroShotKnowledgeTransfer', '')
-                    filepath_sample = dirpath + '/saved_images/sample_image_n_pseudo_batch_' + str(self.n_pseudo_batches+1) + '.png'
+                    filepath_sample = dirpath + '/saved_images/' + dirname + '/sample_image_n_pseudo_batch_' + str(self.n_pseudo_batches+1) + '.png'
                     #filepath_x_pseudo = dirpath + '/logs/x_pseudo_image_n_pseudo_batch_' + str(self.n_pseudo_batches) + '.png'
                     print('Saving image to: ' + str(filepath_sample))
 
