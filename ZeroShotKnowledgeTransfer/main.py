@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     dirpath = os.path.dirname(__file__)
     dirpath = dirpath.replace('/ZeroShotKnowledgeTransfer', '')
-    print("dirpath: " + dirpath)
+    print("dirpath: " + str(dirpath))
 
     parser = argparse.ArgumentParser(description='Welcome to the future')
 
