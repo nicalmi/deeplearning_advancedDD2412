@@ -77,6 +77,12 @@ class ZeroShotKTSolver(object):
         print('---------\n')
 
     def run(self):
+        #Write architecture to file
+        dirpath = os.path.dirname(__file__)
+        dirpath = dirpath.replace('/ZeroShotKnowledgeTransfer', '')
+        f = open(str(dirpath) + '/saved_images/generator_architecture.txt', 'w+')
+        f.write(str(self.generator))
+        f.close()
 
         running_data_time, running_batch_time = AggregateScalar(), AggregateScalar()
         running_student_maxes_avg, running_teacher_maxes_avg = AggregateScalar(), AggregateScalar()
@@ -143,7 +149,7 @@ class ZeroShotKTSolver(object):
                     filepath = ''
                     dirpath = os.path.dirname(__file__)
                     dirpath = dirpath.replace('/ZeroShotKnowledgeTransfer', '')
-                    filepath_sample = dirpath + '/logs/sample_image_n_pseudo_batch_' + str(self.n_pseudo_batches+1) + '.png'
+                    filepath_sample = dirpath + '/saved_images/sample_image_n_pseudo_batch_' + str(self.n_pseudo_batches+1) + '.png'
                     #filepath_x_pseudo = dirpath + '/logs/x_pseudo_image_n_pseudo_batch_' + str(self.n_pseudo_batches) + '.png'
                     print('Saving image to: ' + str(filepath_sample))
 
