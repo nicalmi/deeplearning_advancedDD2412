@@ -17,23 +17,13 @@ class Generator(nn.Module):
         super(Generator, self).__init__()
 
         self.layers = nn.Sequential(
-            nn.Linear(z_dim, 128 * 8**2),
-            View((-1, 128, 8, 8)),
+            nn.Linear(z_dim, 128 * 16**2),
+            View((-1, 128, 16, 16)),
             nn.BatchNorm2d(128),
 
             nn.Upsample(scale_factor=2),
-            nn.Conv2d(128, 128, 3, stride=1, padding=1),
-            nn.BatchNorm2d(128),
-            nn.LeakyReLU(0.2, inplace=True),
-
-            nn.Upsample(scale_factor=2),
-            nn.Conv2d(128, 64, 3, stride=1, padding=1),
-            nn.BatchNorm2d(64),
-            nn.LeakyReLU(0.2, inplace=True),
-
-            nn.Conv2d(64, 3, 3, stride=1, padding=1),
-
-            nn.BatchNorm2d(3, affine=True)
+            nn.Conv2d(128, 3, 3, stride=1, padding=1),
+            nn.BatchNorm2d(3)
         )
 
     def forward(self, z):
