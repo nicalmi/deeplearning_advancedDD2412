@@ -142,7 +142,7 @@ class ZeroShotKTSolver(object):
                     student_maxes_distribution.append(student_maxes)
                     student_argmaxes_distribution.append(student_argmaxes)
 
-                extralogs = [1, 10, 50, 100, 200, 300, 400]
+                extralogs = [1] + list(range(0, 101, 10)) + list(range(200, 1001, 100))
                 if (self.n_pseudo_batches+1) % self.args.log_freq == 0 or extralogs.__contains__(self.n_pseudo_batches+1):
                     test_acc = self.test()
 
