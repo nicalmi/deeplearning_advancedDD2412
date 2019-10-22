@@ -11,6 +11,7 @@ from utils.logger import *
 from utils.datasets import *
 from models.selector import *
 from utils.loaders import *
+import scipy
 
 
 class ZeroShotKTSolver(object):
@@ -134,6 +135,29 @@ class ZeroShotKTSolver(object):
 
                 if (self.n_pseudo_batches+1) % self.args.log_freq == 0:
                     test_acc = self.test()
+
+                    # DD2412 Save images for report
+                    # The 'sampleimage' is produced using the the original code
+                    # The 'npimage' with 'x_pseudo' will probably not be used
+                    dirpath = ''
+                    filepath = ''
+                    dirpath = os.path.dirname(__file__)
+                    dirpath = dirpath.replace('/ZeroShotKnowledgeTransfer', '')
+                    filepath_sample = dirpath + '/logs/sample_image_n_pseudo_batch_' + str(self.n_pseudo_batches) + '.png'
+                    #filepath_x_pseudo = dirpath + '/logs/x_pseudo_image_n_pseudo_batch_' + str(self.n_pseudo_batches) + '.png'
+                    print('Saving image to: ' + str(filepath_sample))
+
+                    sampleimage = self.generator.samples(n=1, grid=True)
+                    #print(sampleimage)
+
+                    #print('sampleimage size: ' + str(sampleimage.size()))
+                    #print('x_pseudo size: ' + str(x_pseudo[1].size()))
+
+                    sampleimage = sampleimage.permute(1, 2, 0).detach().numpy()
+                    #npimage = x_pseudo[1].permute(1, 2, 0).detach().numpy()
+
+                    scipy.misc.imsave(filepath_sample, sampleimage)
+                    #scipy.misc.imsave(filepath_x_pseudo, npimage)
 
                     with torch.no_grad():
                         print('\nBatch {}/{} -- Generator Loss: {:02.2f} -- Student Loss: {:02.2f}'.format(self.n_pseudo_batches, self.args.total_n_pseudo_batches, running_generator_total_loss.avg(), running_student_total_loss.avg()))
