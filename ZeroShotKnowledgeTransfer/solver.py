@@ -132,8 +132,8 @@ class ZeroShotKTSolver(object):
                     student_maxes_distribution.append(student_maxes)
                     student_argmaxes_distribution.append(student_argmaxes)
 
-
-                if (self.n_pseudo_batches+1) % self.args.log_freq == 0:
+                extralogs = [10, 50, 100, 200, 300, 400]
+                if (self.n_pseudo_batches+1) % self.args.log_freq == 0 or extralogs.__contains__(self.n_pseudo_batches+1):
                     test_acc = self.test()
 
                     # DD2412 Save images for report
