@@ -43,7 +43,7 @@ if __name__ == "__main__":
     from utils.helpers import str2bool
     print('Running...')
 
-    dirpath = os.path.dirname(__file__)
+    dirpath = os.getcwd()
     dirpath = dirpath.replace('/ZeroShotKnowledgeTransfer', '')
     print("dirpath: " + str(dirpath))
 
