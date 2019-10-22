@@ -1,3 +1,5 @@
 .idea/
 /Datasets/*
 /logs/*
+ZeroShotKnowledgeTransfer/main.py
+ZeroShotKnowledgeTransfer/scripts/*
