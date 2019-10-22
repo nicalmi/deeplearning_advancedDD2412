@@ -50,7 +50,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Welcome to the future')
 
     parser.add_argument('--dataset', type=str, default='CIFAR10', choices=['SVHN', 'CIFAR10'])
-    parser.add_argument('--total_n_pseudo_batches', type=float, default=100)
+    parser.add_argument('--total_n_pseudo_batches', type=float, default=80000)
     parser.add_argument('--n_generator_iter', type=int, default=1, help='per batch, for few and zero shot')
     parser.add_argument('--n_student_iter', type=int, default=7, help='per batch, for few and zero shot')
     parser.add_argument('--batch_size', type=int, default=128, help='for few and zero shot')
@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
     args.total_n_pseudo_batches = int(args.total_n_pseudo_batches)
     if args.AT_beta > 0: assert args.student_architecture[:3] in args.teacher_architecture
-    args.log_freq = max(1, int(args.total_n_pseudo_batches / 100))
+    args.log_freq = max(1, int(args.total_n_pseudo_batches / 1000))
     args.dataset_path = os.path.join(args.datasets_path, args.dataset)
     args.use_gpu = args.use_gpu and torch.cuda.is_available()
     args.device = torch.device('cuda') if args.use_gpu else torch.device('cpu')
