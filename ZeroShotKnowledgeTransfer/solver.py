@@ -143,7 +143,7 @@ class ZeroShotKTSolver(object):
                     filepath = ''
                     dirpath = os.path.dirname(__file__)
                     dirpath = dirpath.replace('/ZeroShotKnowledgeTransfer', '')
-                    filepath_sample = dirpath + '/logs/sample_image_n_pseudo_batch_' + str(self.n_pseudo_batches) + '.png'
+                    filepath_sample = dirpath + '/logs/sample_image_n_pseudo_batch_' + str(self.n_pseudo_batches+1) + '.png'
                     #filepath_x_pseudo = dirpath + '/logs/x_pseudo_image_n_pseudo_batch_' + str(self.n_pseudo_batches) + '.png'
                     print('Saving image to: ' + str(filepath_sample))
 
