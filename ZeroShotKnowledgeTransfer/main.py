@@ -1,6 +1,7 @@
 import torch
 from solver import *
 from utils.helpers import *
+from datetime import datetime
 
 def main(args):
     """
@@ -52,7 +53,7 @@ if __name__ == "__main__":
     parser.add_argument('--dataset', type=str, default='CIFAR10', choices=['SVHN', 'CIFAR10'])
     parser.add_argument('--total_n_pseudo_batches', type=float, default=80000)
     parser.add_argument('--n_generator_iter', type=int, default=1, help='per batch, for few and zero shot')
-    parser.add_argument('--n_student_iter', type=int, default=7, help='per batch, for few and zero shot')
+    parser.add_argument('--n_student_iter', type=int, default=10, help='per batch, for few and zero shot')
     parser.add_argument('--batch_size', type=int, default=128, help='for few and zero shot')
     parser.add_argument('--z_dim', type=int, default=100, help='for few and zero shot')
     parser.add_argument('--student_learning_rate', type=float, default=2e-3)
@@ -65,21 +66,23 @@ if __name__ == "__main__":
     parser.add_argument('--pretrained_models_path', nargs="?", type=str, default=dirpath + '/Pretrained')
     parser.add_argument('--datasets_path', type=str, default=dirpath + '/Datasets/')
     parser.add_argument('--log_directory_path', type=str, default=dirpath + '/logs/')
-    parser.add_argument('--save_final_model', type=str2bool, default=0)
+    parser.add_argument('--save_final_model', type=str2bool, default=1)
     parser.add_argument('--save_n_checkpoints', type=int, default=0)
-    parser.add_argument('--save_model_path', type=str, default=dirpath + '/FewShotKT/logs/')
-    parser.add_argument('--seeds', nargs='*', type=int, default=[0, 1])
+    parser.add_argument('--save_model_path', type=str, default=dirpath + '/saved_models')
+    parser.add_argument('--seeds', nargs='*', type=int, default=[0])
     parser.add_argument('--workers', type=int, default=1)
     parser.add_argument('--use_gpu', type=str2bool, default=True, help='set to False to debug on cpu, using LeNets')
     args = parser.parse_args()
 
     args.total_n_pseudo_batches = int(args.total_n_pseudo_batches)
     if args.AT_beta > 0: assert args.student_architecture[:3] in args.teacher_architecture
-    args.log_freq = max(1, int(args.total_n_pseudo_batches / 1000))
+    args.log_freq = 1000 #max(1, int(args.total_n_pseudo_batches / 800))
     args.dataset_path = os.path.join(args.datasets_path, args.dataset)
     args.use_gpu = args.use_gpu and torch.cuda.is_available()
     args.device = torch.device('cuda') if args.use_gpu else torch.device('cpu')
-    args.experiment_name = 'ZeroShotKnowledgeTransfer_{}_{}_{}_gi{}_si{}_zd{}_plr{}_slr{}_bs{}_T{}_beta{}'.format(args.dataset, args.teacher_architecture,  args.student_architecture, args.n_generator_iter, args.n_student_iter, args.z_dim, args.generator_learning_rate, args.student_learning_rate, args.batch_size, args.KL_temperature, args.AT_beta)
+    now = datetime.now()
+    nowformated = now.strftime("%Y-%m-%d_%H.%M.%S")
+    args.experiment_name = nowformated + '_ZeroShotKnowledgeTransfer_{}_{}_{}_gi{}_si{}_zd{}_plr{}_slr{}_bs{}_T{}_beta{}'.format(args.dataset, args.teacher_architecture,  args.student_architecture, args.n_generator_iter, args.n_student_iter, args.z_dim, args.generator_learning_rate, args.student_learning_rate, args.batch_size, args.KL_temperature, args.AT_beta)
 
     print('\nTotal data batches: {}'.format(args.total_n_pseudo_batches))
     print('Logging results every {} batch'.format(args.log_freq))
