@@ -11,6 +11,8 @@ from utils.logger import *
 from utils.datasets import *
 from models.selector import *
 from utils.loaders import *
+import scipy
+from datetime import datetime
 
 
 class ZeroShotKTSolver(object):
@@ -76,6 +78,15 @@ class ZeroShotKTSolver(object):
         print('---------\n')
 
     def run(self):
+        #Write architecture to file
+        dirpath = os.path.dirname(__file__)
+        dirpath = dirpath.replace('/ZeroShotKnowledgeTransfer', '')
+        now = datetime.now()
+        dirname = now.strftime("%Y-%m-%d_%H.%M.%S")
+        os.mkdir(dirpath + '/saved_images/' + dirname)
+        f = open(dirpath + '/saved_images/' + dirname + '/generator_architecture.txt', 'w+')
+        f.write(str(self.generator))
+        f.close()
 
         running_data_time, running_batch_time = AggregateScalar(), AggregateScalar()
         running_student_maxes_avg, running_teacher_maxes_avg = AggregateScalar(), AggregateScalar()
@@ -131,9 +142,32 @@ class ZeroShotKTSolver(object):
                     student_maxes_distribution.append(student_maxes)
                     student_argmaxes_distribution.append(student_argmaxes)
 
-
-                if (self.n_pseudo_batches+1) % self.args.log_freq == 0:
+                extralogs = [1] + list(range(0, 101, 10)) + list(range(200, 1001, 100))
+                if (self.n_pseudo_batches+1) % self.args.log_freq == 0 or extralogs.__contains__(self.n_pseudo_batches+1):
                     test_acc = self.test()
+
+                    # DD2412 Save images for report
+                    # The 'sampleimage' is produced using the the original code
+                    # The 'npimage' with 'x_pseudo' will probably not be used
+                    dirpath = ''
+                    filepath = ''
+                    dirpath = os.path.dirname(__file__)
+                    dirpath = dirpath.replace('/ZeroShotKnowledgeTransfer', '')
+                    filepath_sample = dirpath + '/saved_images/' + dirname + '/sample_image_n_pseudo_batch_' + str(self.n_pseudo_batches+1) + '.png'
+                    #filepath_x_pseudo = dirpath + '/logs/x_pseudo_image_n_pseudo_batch_' + str(self.n_pseudo_batches) + '.png'
+                    print('Saving image to: ' + str(filepath_sample))
+
+                    sampleimage = self.generator.samples(n=1, grid=True)
+                    #print(sampleimage)
+
+                    #print('sampleimage size: ' + str(sampleimage.size()))
+                    #print('x_pseudo size: ' + str(x_pseudo[1].size()))
+
+                    sampleimage = sampleimage.permute(1, 2, 0).detach().numpy()
+                    #npimage = x_pseudo[1].permute(1, 2, 0).detach().numpy()
+
+                    scipy.misc.imsave(filepath_sample, sampleimage)
+                    #scipy.misc.imsave(filepath_x_pseudo, npimage)
 
                     with torch.no_grad():
                         print('\nBatch {}/{} -- Generator Loss: {:02.2f} -- Student Loss: {:02.2f}'.format(self.n_pseudo_batches, self.args.total_n_pseudo_batches, running_generator_total_loss.avg(), running_student_total_loss.avg()))
