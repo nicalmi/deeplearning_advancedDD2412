@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
     args.total_n_pseudo_batches = int(args.total_n_pseudo_batches)
     if args.AT_beta > 0: assert args.student_architecture[:3] in args.teacher_architecture
-    args.log_freq = max(1, int(args.total_n_pseudo_batches / 1000))
+    args.log_freq = 1000 #max(1, int(args.total_n_pseudo_batches / 800))
     args.dataset_path = os.path.join(args.datasets_path, args.dataset)
     args.use_gpu = args.use_gpu and torch.cuda.is_available()
     args.device = torch.device('cuda') if args.use_gpu else torch.device('cpu')
