@@ -69,7 +69,7 @@ if __name__ == "__main__":
     parser.add_argument('--save_final_model', type=str2bool, default=0)
     parser.add_argument('--save_n_checkpoints', type=int, default=0)
     parser.add_argument('--save_model_path', type=str, default=dirpath + '/FewShotKT/logs/')
-    parser.add_argument('--seeds', nargs='*', type=int, default=[0, 1])
+    parser.add_argument('--seeds', nargs='*', type=int, default=[0])
     parser.add_argument('--workers', type=int, default=1)
     parser.add_argument('--use_gpu', type=str2bool, default=True, help='set to False to debug on cpu, using LeNets')
     args = parser.parse_args()
