@@ -70,7 +70,7 @@ if __name__ == "__main__":
     parser.add_argument('--save_n_checkpoints', type=int, default=0)
     parser.add_argument('--save_model_path', type=str, default=dirpath + '/saved_models')
     parser.add_argument('--seeds', nargs='*', type=int, default=[0])
-    parser.add_argument('--workers', type=int, default=1)
+    parser.add_argument('--workers', type=int, default=2)
     parser.add_argument('--use_gpu', type=str2bool, default=True, help='set to False to debug on cpu, using LeNets')
     args = parser.parse_args()
 
