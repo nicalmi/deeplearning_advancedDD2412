@@ -52,7 +52,7 @@ if __name__ == "__main__":
     parser.add_argument('--dataset', type=str, default='CIFAR10', choices=['SVHN', 'CIFAR10'])
     parser.add_argument('--total_n_pseudo_batches', type=float, default=80000)
     parser.add_argument('--n_generator_iter', type=int, default=1, help='per batch, for few and zero shot')
-    parser.add_argument('--n_student_iter', type=int, default=7, help='per batch, for few and zero shot')
+    parser.add_argument('--n_student_iter', type=int, default=10, help='per batch, for few and zero shot')
     parser.add_argument('--batch_size', type=int, default=128, help='for few and zero shot')
     parser.add_argument('--z_dim', type=int, default=100, help='for few and zero shot')
     parser.add_argument('--student_learning_rate', type=float, default=2e-3)
