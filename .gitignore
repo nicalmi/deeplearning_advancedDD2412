@@ -3,3 +3,4 @@
 /logs/*
 ZeroShotKnowledgeTransfer/main.py
 ZeroShotKnowledgeTransfer/scripts/*
+/saved_images/*
