@@ -280,8 +280,10 @@ class ZeroShotKTSolver(object):
 
     def save_model(self, test_acc):
 
-        delete_files_from_name(self.save_model_path, "test_acc_", type='contains')
+        if os.path.exists(self.save_model_path):
+            delete_files_from_name(self.save_model_path, "test_acc_", type='contains')
         file_name = "n_batches_{}_test_acc_{:02.2f}".format(self.n_pseudo_batches, test_acc * 100)
+        os.mkdir(self.save_model_path)
         with open(os.path.join(self.save_model_path, file_name), 'w+') as f:
             f.write("NA")
 
