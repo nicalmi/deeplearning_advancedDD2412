@@ -1,3 +1,17 @@
+Linear(in_features=100, out_features=32768, bias=True) ----> torch.Size([50, 32768])
+
+ View() ----> torch.Size([50, 128, 16, 16])
+
+ BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True) ----> torch.Size([50, 128, 16, 16])
+/usr/local/lib/python3.7/site-packages/torch/nn/modules/upsampling.py:129: UserWarning: nn.Upsample is deprecated. Use nn.functional.interpolate instead.
+  warnings.warn("nn.{} is deprecated. Use nn.functional.interpolate instead.".format(self.name))
+
+ Upsample(scale_factor=2, mode=nearest) ----> torch.Size([50, 128, 32, 32])
+
+ Conv2d(128, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) ----> torch.Size([50, 3, 32, 32])
+
+ BatchNorm2d(3, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True) ----> torch.Size([50, 3, 32, 32])
+torch.Size([50, 3, 32, 32])
 ----------------------------------------------------------------
         Layer (type)               Output Shape         Param #
 ================================================================
