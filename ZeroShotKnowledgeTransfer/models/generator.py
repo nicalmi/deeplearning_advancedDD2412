@@ -17,11 +17,11 @@ class Generator(nn.Module):
         super(Generator, self).__init__()
 
         self.layers = nn.Sequential(
-            nn.Linear(z_dim, 128 * 16**2),
-            View((-1, 128, 16, 16)),
+            nn.Linear(z_dim, 128 * 8**2),
+            View((-1, 128, 8, 8)),
             nn.BatchNorm2d(128),
 
-            nn.Upsample(scale_factor=2),
+            nn.Upsample(scale_factor=4),
             nn.Conv2d(128, 3, 3, stride=1, padding=1),
             nn.BatchNorm2d(3)
         )
