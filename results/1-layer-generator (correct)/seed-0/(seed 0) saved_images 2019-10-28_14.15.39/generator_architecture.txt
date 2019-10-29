@@ -1,0 +1,12 @@
+LearnableLoader(
+  (generator): Generator(
+    (layers): Sequential(
+      (0): Linear(in_features=100, out_features=8192, bias=True)
+      (1): View()
+      (2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (3): Upsample(scale_factor=4.0, mode=nearest)
+      (4): Conv2d(128, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (5): BatchNorm2d(3, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+)
