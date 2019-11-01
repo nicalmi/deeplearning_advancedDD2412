@@ -1,5 +1,6 @@
 # How does generator size affect Zero-shot Knowledge Transfer via Adversarial Belief Matching?
 
+## Setup
 1. Install pytorch with: pip3 install torch torchvision
 2. Run pytorch_test.py in the repo to see if pytorch is correctly installed
 3. Set the project root folder to ZeroShotKnowledgeTransfer
