@@ -1,4 +1,4 @@
-# deeplearning_advancedDD2412
+# How does generator size affect Zero-shot Knowledge Transfer via Adversarial Belief Matching?
 
 1. Install pytorch with: pip3 install torch torchvision
 2. Run pytorch_test.py in the repo to see if pytorch is correctly installed
@@ -19,7 +19,7 @@ DATASETS_DIR=/Users/niclashedberg/code/deeplearning_advancedDD2412/Datasets/
 ```
 
 5. Switch 'python' to 'python3' in scripts/main1.sh 
-6. Ändra path i main.py motsvarande
+6. Change path in i main.py 
 ```python
 parser.add_argument('--pretrained_models_path', nargs="?", type=str, default='/Users/niclashedberg/code/deeplearning_advancedDD2412/Pretrained')
 parser.add_argument('--datasets_path', type=str, default="/Users/niclashedberg/code/deeplearning_advancedDD2412/Datasets/")
